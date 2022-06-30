@@ -1,0 +1,3 @@
+Write a querry to return the list of Movies and their genres.
+
+SELECT movies.title, genre.genre FROM movies LEFT JOIN genre ON movies.id = genre.id;

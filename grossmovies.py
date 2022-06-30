@@ -1,0 +1,37 @@
+import csv
+
+
+  
+from cs50 import SQL
+
+
+open("fkicks.db", "w").close()
+
+db = SQL("sqlite:///fkicks.db")
+
+db.execute("CREATE TABLE movies (id INTEGER, title TEXT, PRIMARY KEY(id))")
+
+db.execute("CREATE TABLE movie_genre(movies_id INTEGER, genre_id INTEGER, PRIMARY KEY(genre_id), FOREIGN KEY(movies_id) REFERENCES movies(id))")
+
+db.execute("CREATE TABLE genre (id INTEGER, genre TEXT, PRIMARY KEY(id), FOREIGN KEY(id) REFERENCES movie_genre(genre_id))")
+
+with open("gross movies.csv", "r") as file:
+
+    reader = csv.DictReader(file)
+
+    for row in reader:
+        title = row["Film"].strip().capitalize()
+
+        id = db.execute("INSERT INTO movies (title) VALUES(?)", title)
+
+        for genre in row["Genre"].split(","):
+            # db.execute("INSERT INTO genre (movie_id, genre) VALUES(?,?)", id, genre)
+
+            Genre = genre.strip().capitalize()
+
+            id_gen = db.execute("INSERT INTO movie_genre(movies_id)VALUES((SELECT id FROM movies WHERE title=?))", title)
+            db.execute("INSERT INTO genre (id, genre)VALUES((SELECT genre_id FROM movie_genre WHERE movies_id=?),?)", id_gen, Genre)
+
+   
+
+
