@@ -2,4 +2,4 @@ Number 1;
  SELECT sh.title FROM shows sh, ratings r WHERE  r.show_id=sh.id ORDER BY r.rating DESC LIMIT 5;
 
  Number 2;
- SELECT g.genre FROM people p, stars s, genres g WHERE p.id=s.person_id AND s.show_id AND p.nam LIKE "%Robert Downey%"
+ SELECT g.genre FROM people p, stars s, genres g WHERE p.id=s.person_id AND s.show_id AND p.name LIKE "%Robert Downey%"
