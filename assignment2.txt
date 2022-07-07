@@ -1,0 +1,5 @@
+Number 1;
+ SELECT sh.title FROM shows sh, ratings r WHERE  r.show_id=sh.id ORDER BY r.rating DESC LIMIT 5;
+
+ Number 2;
+ 
